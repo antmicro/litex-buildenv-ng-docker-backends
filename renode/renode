@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+
+from os import system
+from sys import argv
+parameters = ""
+for arg in argv[1:]:
+    # if is not option flag or number, add quotation marks
+    if arg[0] != '-' and not arg[0].isdigit():
+        parameters += f" '{arg}'"
+    else:
+        parameters += f" {arg}"
+system(f'docker run -ti -e DISPLAY -v $XAUTHORITY:/home/developer/.Xauthority -p 1234:1234 --net=host -v $TOP_DIR:$TOP_DIR antmicro/renode renode{parameters}')
+
