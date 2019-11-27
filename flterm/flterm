@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+from os import system as sys
+from sys import argv, exit
+from platform import system
+if len(argv) < 2:
+    print("Need at least '--port' argument")
+    exit(1)
+
+if system() == "Windows":
+    port = argv[1][(argv[1].find("COM")):]
+else:
+    port = argv[1][(argv[1].find("/dev/tty")):]
+parameters = " ".join(argv[1:])
+sys(f'docker run --device={port} -ti -v $TOP_DIR:$TOP_DIR flterm {parameters}')
+

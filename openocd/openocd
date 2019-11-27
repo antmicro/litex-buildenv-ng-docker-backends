@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+
+from os import system
+from sys import argv
+from glob import glob
+
+ports = " ".join([f"--device={x}" for x in  glob("/dev/ttyUSB*")])
+parameters = " ".join(argv[1:])
+system(f'docker run -ti -v $TOP_DIR:$TOP_DIR {ports} -p 6666:6666 -p 4444:4444 flterm {parameters}')
+
